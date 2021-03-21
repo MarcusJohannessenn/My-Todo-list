@@ -2,8 +2,18 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="no.marcusjohannessen.todolist.Controller"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="no.marcusjohannessen.todolist.Controller">
+    <left>
+        <ListView fx:id="todoListView">
+
+        </ListView>
+    </left>
+    <center>
+        <TextArea  />
+    </center>
+
 </BorderPane>
