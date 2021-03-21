@@ -34,10 +34,15 @@ public class TodoData {
         return todoItems;
     }
 
+    public void addTodoItem(TodoItem item){
+        todoItems.add(item);
+    }
+/*
+Trenger ikke denne nå
     public void setTodoItems(List<TodoItem> todoItems) {
         this.todoItems = todoItems;
     }
-
+*/
     /**
      *
      * @throws IOException
@@ -90,4 +95,5 @@ public class TodoData {
             }
         }
     }
+
 }
