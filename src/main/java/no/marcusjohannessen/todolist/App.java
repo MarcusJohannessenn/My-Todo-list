@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import no.marcusjohannessen.todolist.datamodel.TodoData;
+import no.marcusjohannessen.todolist.datamodel.TodoItem;
 
 import java.io.IOException;
 
