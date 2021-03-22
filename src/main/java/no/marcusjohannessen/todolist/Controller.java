@@ -2,10 +2,15 @@ package no.marcusjohannessen.todolist;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,9 +37,13 @@ public class Controller {
     private BorderPane mainBorderPane;
     @FXML
     private ContextMenu listContextMenu;
+    @FXML
+    private ToggleButton filterToggleButton;
+
+    private FilteredList<TodoItem> filteredList;
 
 
-    public void initialize() {
+   public void initialize() {
 
         listContextMenu = new ContextMenu();
         //option people see when they rightclick
@@ -60,8 +69,24 @@ public class Controller {
             }
         });
 
+        filteredList = new FilteredList<>(TodoData.getInstance().getTodoItems(), new Predicate<TodoItem>() {
+            @Override
+            public boolean test(TodoItem todoItem) {
+                return true;
+            }
+        });
+
+
+        SortedList<TodoItem> sortedList = new SortedList<TodoItem>(filteredList, new Comparator<TodoItem>() {
+            //Sorts the items by date
+            @Override
+            public int compare(TodoItem o1, TodoItem o2) {
+                return o1.getDeadLine().compareTo(o2.getDeadLine());
+            }
+        });
         // Bind the listView to the observable list in the todoData class
-        todoListView.setItems(TodoData.getInstance().getTodoItems());
+        //todoListView.setItems(TodoData.getInstance().getTodoItems());
+        todoListView.setItems(sortedList); //show the list ordered by date
         //todoListView.getSelectionModel().getSelectionMode(SelectionMode.SINGLE);
         todoListView.getSelectionModel().selectFirst();
 
@@ -98,8 +123,6 @@ public class Controller {
                                 cell.setContextMenu(listContextMenu);
                             }
                         });
-
-
                 return cell;
             }
         });
@@ -175,6 +198,17 @@ public class Controller {
 
         if(result.isPresent() &&(result.get() == ButtonType.OK)){
             TodoData.getInstance().deleteTodoItem(item);
+        }
+    }
+
+    /**
+     * Event handler for togglebutton
+     */
+    public void handleFilterButton(){
+        if(filterToggleButton.isSelected()){
+
+        }else{
+
         }
     }
 }
