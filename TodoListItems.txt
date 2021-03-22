@@ -1,3 +1,0 @@
-Test	Dette her er en test	17-03-2021
-Test1	Dette her er en til test	16-03-2021
-Today	This item should be red in the list	22-03-2021

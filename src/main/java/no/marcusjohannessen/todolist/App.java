@@ -17,6 +17,10 @@ public class App extends Application {
 
     private static Scene scene;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         // important to load the right FXML
@@ -25,19 +29,16 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+    
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     /**
      * Vi vil lagre dataene når vi lukker appen
@@ -50,6 +51,7 @@ public class App extends Application {
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
+
     }
 
     @Override
