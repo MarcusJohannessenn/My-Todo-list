@@ -1,6 +1,7 @@
 package no.marcusjohannessen.todolist.datamodel;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,12 +14,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * a class that handles the data of the todo item
+ * and stores and writes it to a file with
+ * buffered reader
+ */
+
 public class TodoData {
 
     private static TodoData instance = new TodoData();
     private static String filename = "TodoListItems.txt";
 
-    private List<TodoItem> todoItems;
+    private ObservableList<TodoItem> todoItems;
     private DateTimeFormatter formatter;
 
     public static TodoData getInstance(){
@@ -30,31 +37,24 @@ public class TodoData {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     }
 
-    public List<TodoItem> getTodoItems() {
+    public ObservableList<TodoItem> getTodoItems() {
         return todoItems;
     }
 
     public void addTodoItem(TodoItem item){
         todoItems.add(item);
     }
-/*
-Trenger ikke denne nå
-    public void setTodoItems(List<TodoItem> todoItems) {
-        this.todoItems = todoItems;
-    }
-*/
+
     /**
      *
      * @throws IOException
      *
      * reads the to-do items from file
      */
-
     public void loadTodoItems() throws IOException{
         todoItems = FXCollections.observableArrayList();
         Path path = Paths.get(filename);
         BufferedReader br = Files.newBufferedReader(path);
-
         String input;
 
         try{
@@ -75,6 +75,15 @@ Trenger ikke denne nå
             }
         }
     }
+
+    /**
+     *
+     * @throws IOException
+     *
+     * Stores the data to a file
+     * if file already exists then it do not make a new one
+     * but instead write it to same file
+     */
     public void storeTodoItems() throws IOException{
         Path path = Paths.get(filename);
         BufferedWriter bw = Files.newBufferedWriter(path);
@@ -96,4 +105,7 @@ Trenger ikke denne nå
         }
     }
 
+    public void deleteTodoItem(TodoItem item){
+        todoItems.remove(item);
+    }
 }

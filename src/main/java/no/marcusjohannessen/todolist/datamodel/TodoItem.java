@@ -36,9 +36,11 @@ public class TodoItem {
     public void setDeadLine(LocalDate deadLine) {
         this.deadLine = deadLine;
     }
-
+/*
     @Override
     public String toString() {
         return shortDescription;
     }
+
+ */
 }
